@@ -1,0 +1,13 @@
+version: '3.5'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=stachu
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=filmweb
+    container_name: postgres
+    ports:
+      - '5432:5432'
