@@ -13,9 +13,8 @@ export const Login = (props) => {
   const navigate = useNavigate()
 
   const onButtonClick = async () => {
-  console.log('gowno');
   try {
-    const response = await axios.post('http://localhost:3010/auth/login', { email, password });
+    const response = await axios.post('http://localhost:3010/login', { email, password });
     console.log(response?.data);
     navigate('/');
   } catch (error) {

@@ -7,7 +7,7 @@ services:
     environment:
       - POSTGRES_USER=stachu
       - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=filmweb
+      - POSTGRES_DB=myBudget
     container_name: postgres
     ports:
       - '5432:5432'

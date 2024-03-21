@@ -1,7 +1,8 @@
-import { useState } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Home } from './components/Home/Home'
-import { Login } from './components/LoginForm/LoginForm'
+import { useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import CreateUser from './components/CreateUser/CreateUser';
+import { Home } from './components/Home/Home';
+import { Login } from './components/LoginForm/LoginForm';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home email={email} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
           <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />} />
+          <Route path="/create-user" element={<CreateUser />} />
         </Routes>
       </BrowserRouter>
     </div>
