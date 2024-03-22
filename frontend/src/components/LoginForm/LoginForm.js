@@ -1,26 +1,25 @@
-import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../Button/Button'
 import styles from './LoginForm.module.css'
+import { AuthContext } from '../../AuthProvider'
 
-export const Login = (props) => {
+const Login = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
-
+  const authContext = useContext(AuthContext)
   const navigate = useNavigate()
 
   const onButtonClick = async () => {
-  try {
-    const response = await axios.post('http://localhost:3010/login', { email, password });
-    console.log(response?.data);
-    navigate('/');
-  } catch (error) {
-    console.error('Error logging in:', error.response.data);
-  }
-};
+    try {
+      await authContext.login({email, password})
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Error logging in:', error.response.data);
+    }
+  };
 
   return (
     <div className={styles.mainContainer}>
@@ -54,3 +53,5 @@ export const Login = (props) => {
     </div>
   )
 }
+
+export default Login

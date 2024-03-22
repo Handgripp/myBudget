@@ -1,20 +1,33 @@
-import { useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import CreateUser from './components/CreateUser/CreateUser';
-import { Home } from './components/Home/Home';
-import { Login } from './components/LoginForm/LoginForm';
+import { useAuth } from './AuthProvider';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import Home from './components/Home/Home'
+import CreateUser from './components/CreateUser/CreateUser'
+import Login from './components/LoginForm/LoginForm'
+import Dashboard from './components/Dashboard/Dashboard'
+
+const ProtectedRoute = ({ isLoggedIn, redirectPath = "/", children }) => {
+  if (!isLoggedIn) {
+    return <Navigate to={redirectPath} replace />;
+  }
+
+  return children;
+};
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [email, setEmail] = useState('')
+  const { isLoggedIn } = useAuth()
 
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home email={email} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
-          <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />} />
+          <Route exact path="/" element={<Home />} />
           <Route path="/create-user" element={<CreateUser />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <Dashboard />
+            </ProtectedRoute>
+          } />
         </Routes>
       </BrowserRouter>
     </div>

@@ -2,9 +2,8 @@ import React from 'react';
 import { Button } from '../Button/Button';
 import styles from "./Home.module.css";
 
-export const Home = (props) => {
+const Home = (props) => {
   const { loggedIn, email } = props
-
   const onButtonClick = () => {
     // You'll update this function later
   }
@@ -27,3 +26,4 @@ export const Home = (props) => {
   )
 }
 
+export default Home
