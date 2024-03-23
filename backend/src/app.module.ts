@@ -8,6 +8,9 @@ import { AuthModule } from './auth/auth.module';
 import { MailModule } from './mail/mail.module';
 import { User } from './shared/entities/users.entity';
 import { UsersModule } from './users/users.module';
+import { ExpensesController } from './expenses/expenses.controller';
+import { ExpensesService } from './expenses/expenses.service';
+import { ExpensesModule } from './expenses/expenses.module';
 
 @Module({
   imports: [
@@ -26,8 +29,9 @@ import { UsersModule } from './users/users.module';
     }),
     AuthModule,
     MailModule,
+    ExpensesModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ExpensesController],
+  providers: [AppService, ExpensesService],
 })
 export class AppModule {}

@@ -2,26 +2,25 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Users } from './users.entity';
 
 @Entity()
-export class Users {
+export class Expenses {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  username: string;
+  @OneToMany(() => Users, (users) => users.id)
+  userId: Users[];
 
   @Column()
-  email: string;
+  category: string;
 
   @Column()
-  password: string;
-
-  @Column({ default: false })
-  isActive: boolean;
+  cost: string;
 
   @CreateDateColumn()
   createdAt: Date;
