@@ -5,12 +5,10 @@ import { validate } from 'env.validate';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { MailModule } from './mail/mail.module';
-import { User } from './shared/entities/users.entity';
-import { UsersModule } from './users/users.module';
-import { ExpensesController } from './expenses/expenses.controller';
-import { ExpensesService } from './expenses/expenses.service';
 import { ExpensesModule } from './expenses/expenses.module';
+import { MailModule } from './mail/mail.module';
+import { Users } from './shared/entities/users.entity';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -23,7 +21,7 @@ import { ExpensesModule } from './expenses/expenses.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User],
+      entities: [Users],
       synchronize: true,
       autoLoadEntities: true,
     }),
@@ -31,7 +29,7 @@ import { ExpensesModule } from './expenses/expenses.module';
     MailModule,
     ExpensesModule,
   ],
-  controllers: [AppController, ExpensesController],
-  providers: [AppService, ExpensesService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

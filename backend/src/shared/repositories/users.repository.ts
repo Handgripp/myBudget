@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserData, UserData } from 'src/users/users.types';
 import { Repository } from 'typeorm';
-import { User } from '../users.entity';
+import { Users } from '../entities/users.entity';
 import { AbstractUsersRepository } from './types/usersAbstract.repository';
 
 @Injectable()
 export class UsersRepository implements AbstractUsersRepository {
   constructor(
-    @InjectRepository(User) private usersRepository: Repository<User>,
+    @InjectRepository(Users) private usersRepository: Repository<Users>,
   ) {}
 
   async activeUser(email: string): Promise<UserData> {

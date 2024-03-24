@@ -2,7 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -13,8 +13,8 @@ export class Expenses {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToMany(() => Users, (users) => users.id)
-  userId: Users[];
+  @ManyToOne(() => Users, (users) => users.expenses)
+  user: string;
 
   @Column()
   category: string;

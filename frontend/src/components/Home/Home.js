@@ -1,11 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import styles from "./Home.module.css";
 
 const Home = (props) => {
   const { loggedIn, email } = props
+  const navigate = useNavigate()
   const onButtonClick = () => {
-    // You'll update this function later
+    navigate('/login');
   }
 
   return (

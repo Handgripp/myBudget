@@ -1,15 +1,17 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { isAuthenticated } from './utils/auth';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { authApi } from './api/auth';
+import { isAuthenticated } from './utils/auth';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [status, setStatus] = useState('PENDING')
   useEffect(() => {
-    const isLoggedIn = isAuthenticated()
-    if (isLoggedIn) {
-      setIsLoggedIn(true)
+    const isUserAuthenticated = isAuthenticated()
+    if (isUserAuthenticated) {
+      setStatus('SUCCESS')
+    } else {
+      setStatus('UNAUTHORIZED')
     }
   }, [])
 
@@ -17,30 +19,31 @@ export const AuthProvider = ({ children }) => {
     try {
       const { data } = await authApi.login(loginData)
       localStorage.setItem('accessToken', data.accessToken)
-      setIsLoggedIn(true)
+      setStatus('SUCCESS')
     } catch (err) {
       console.error(err)
-      setIsLoggedIn(false)
+      setStatus('UNAUTHORIZED')
     }
   }
 
   const logout = () => {
-    setIsLoggedIn(false)
+    setStatus('PENDING')
     localStorage.removeItem('accessToken')
   }
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, login, logout }}>
+    <AuthContext.Provider value={{ status, login, logout}}>
       {children}
     </AuthContext.Provider>
   );
 };
 
 export const useAuth = () => {
-  const { isLoggedIn } = useContext(AuthContext)
+  const { status } = useContext(AuthContext)
+  const isUserAuthenticated = status === 'SUCCESS'
   return {
-    isLoggedIn
+    isUserAuthenticated
   }
 }
 
-export { AuthContext }
+export { AuthContext };

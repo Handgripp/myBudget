@@ -6,7 +6,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { MailService } from 'src/mail/mail.service';
-import { UsersRepository } from 'src/shared/entities/repositories/users.repository';
+import { UsersRepository } from 'src/shared/repositories/users.repository';
 import { CreateUserData } from './users.types';
 
 @Injectable()
