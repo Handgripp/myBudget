@@ -22,6 +22,9 @@ export class Expenses {
   @Column()
   cost: string;
 
+  @Column()
+  date: Date;
+
   @CreateDateColumn()
   createdAt: Date;
 

@@ -6,5 +6,8 @@ export const expensesApi = {
   },
   createExpenses(data) {
     return authenticatedAxios.post('http://localhost:3010/expenses', data);
-  }
+  },
+  deleteExpenses(expensesId) {
+  return authenticatedAxios.delete(`http://localhost:3010/expenses/${expensesId}`);
+}
 }

@@ -20,6 +20,9 @@ export class ExpensesResponseDto {
   @ApiProperty()
   id: string;
 
+  @ApiProperty()
+  date: Date;
+
   constructor(data: ExpensesData) {
     this.id = data.id;
     this.category = data.category;
@@ -27,5 +30,6 @@ export class ExpensesResponseDto {
     this.user = data.user;
     this.createdAt = data.createdAt;
     this.updatedAt = data.updatedAt;
+    this.date = data.date;
   }
 }

@@ -1,41 +1,39 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 import CreateUser from './components/CreateUser/CreateUser';
 import Dashboard from './components/Dashboard/Dashboard';
 import Home from './components/Home/Home';
 import Login from './components/LoginForm/LoginForm';
 
-
 const AuthenticatedApp = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+    </Routes>
   )
 }
 
 const UnauthenticatedApp = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/create-user" element={<CreateUser />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route exact path="/" element={<Home />} />
+      <Route path="/create-user" element={<CreateUser />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 
 function App() {
   const { isUserAuthenticated } = useAuth()
-  console.log(isUserAuthenticated)
   return (
     <div className="App">
-      {isUserAuthenticated ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+      <BrowserRouter>
+        {isUserAuthenticated ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+      </BrowserRouter>
     </div>
   )
 }
 
-export default App
+export default App;

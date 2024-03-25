@@ -6,10 +6,11 @@ import { CreateExpensesData } from './expenses.types';
 export class ExpensesService {
   constructor(private readonly expensesRepository: ExpensesRepository) {}
 
-  async addExpenses({ category, cost, user }: CreateExpensesData) {
+  async addExpenses({ category, cost, user, date }: CreateExpensesData) {
     const expenses = await this.expensesRepository.create({
       category,
       cost,
+      date,
       user,
     });
     return await this.expensesRepository.findOneById(user, expenses.id);
@@ -17,5 +18,8 @@ export class ExpensesService {
 
   async getAll(userId: string) {
     return this.expensesRepository.findManyByUserId(userId);
+  }
+  async delete(expenseId: string) {
+    return this.expensesRepository.delete(expenseId);
   }
 }

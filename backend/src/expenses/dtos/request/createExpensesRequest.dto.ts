@@ -10,4 +10,8 @@ export class CreateExpensesRequestDto {
   @IsString()
   @IsNotEmpty()
   cost: string;
+
+  @ApiProperty({ example: '2023-01-01' })
+  @IsNotEmpty()
+  date: Date;
 }
