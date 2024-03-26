@@ -95,6 +95,7 @@ const Dashboard = () => {
               <th>Date</th>
               <th>Category</th>
               <th>Cost</th>
+              <th>User</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -131,6 +132,9 @@ const Dashboard = () => {
                 />
               </td>
               <td>
+                { authContext.username }
+              </td>
+              <td>
                 <button className={`${styles.addButton} ${styles.plusIcon}`} onClick={handleSubmit}>
                   <FaPlus />
                 </button>
@@ -141,6 +145,7 @@ const Dashboard = () => {
                 <td>{formatDate(expense.date)}</td>
                 <td>{expense.category}</td>
                 <td>{expense.cost}</td>
+                <td>{expense.user.username}</td>
                 <td>
                   <button className={styles.editButton} onClick={() => handleEditExpense(expense.id)}><FaEdit /></button>
                   <button className={styles.deleteButton} onClick={() => handleDeleteExpense(expense.id)}><FaTrash /></button>
