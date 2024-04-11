@@ -3,6 +3,7 @@ export type CreateExpensesData = {
   cost: string;
   user: string;
   date: Date;
+  budgets: string;
 };
 
 export type ExpensesData = {

@@ -21,15 +21,17 @@ export class ExpensesRepository implements AbstractExpensesRepository {
     cost,
     user,
     date,
+    budgets,
   }: CreateExpensesData): Promise<ExpensesData> {
-    const newExpenses = this.expensesRepository.create({
+    const newExpense = this.expensesRepository.create({
       category,
       cost,
       user,
       date,
+      budgets,
     });
-    const savedExpenses = await this.expensesRepository.save(newExpenses);
-    return savedExpenses;
+    const savedExpense = await this.expensesRepository.save(newExpense);
+    return savedExpense;
   }
 
   async delete(expensesId: string): Promise<DeleteExpensesData> {

@@ -6,12 +6,19 @@ import { CreateExpensesData } from './expenses.types';
 export class ExpensesService {
   constructor(private readonly expensesRepository: ExpensesRepository) {}
 
-  async addExpenses({ category, cost, user, date }: CreateExpensesData) {
+  async addExpenses({
+    category,
+    cost,
+    user,
+    date,
+    budgets,
+  }: CreateExpensesData) {
     const expenses = await this.expensesRepository.create({
       category,
       cost,
       date,
       user,
+      budgets,
     });
     return await this.expensesRepository.findOneById(user, expenses.id);
   }

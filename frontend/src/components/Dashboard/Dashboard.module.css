@@ -6,75 +6,6 @@
   background-color: white;
 }
 
-.menu {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  background-color: white;
-  padding: 10px 20px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.menuItem {
-  position: relative;
-}
-
-.menuItem {
-  position: relative;
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
-  margin: 0 10px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.menuItem::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -2px;
-  height: 2px;
-  background-color: transparent;
-  transition: background-color 0.3s ease;
-}
-
-.menuItem:hover::after {
-  background-color: #4169e1;
-}
-
-.menuItem:first-child {
-  margin-left: auto;
-}
-
-.logo {
-  color: #6495ed;
-  font-weight: bold;
-  margin-right: auto;
-}
-
-.logoutButtonContainer {
-  padding: 5px;
-  border-radius: 5px;
-  background-color: #6495ed;
-  transition: background-color 0.3s;
-}
-
-.logoutButtonContainer:hover {
-  background-color: #4169e1;
-}
-
-.logoutButton {
-  color: white;
-  padding: 0 10px;
-  font-size: 16px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
 .content {
   flex-grow: 1;
   display: flex;
@@ -199,3 +130,8 @@
 .inputField+.inputField {
   margin-left: 10px;
 }
+
+.sidebarContainer {
+
+}
+

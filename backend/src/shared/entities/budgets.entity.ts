@@ -3,31 +3,26 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Expenses } from './expenses.entity';
 import { Users } from './users.entity';
-import { Budgets } from './budgets.entity';
 
 @Entity()
-export class Expenses {
+export class Budgets {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Users, (users) => users.expenses)
+  @OneToMany(() => Expenses, (expenses) => expenses.budgets)
+  expenses: string;
+
+  @ManyToOne(() => Users, (users) => users.budgets)
   user: string;
 
-  @ManyToOne(() => Budgets, (budgets) => budgets.expenses)
-  budgets: string;
-
   @Column()
-  category: string;
-
-  @Column()
-  cost: string;
-
-  @Column()
-  date: Date;
+  name: string;
 
   @CreateDateColumn()
   createdAt: Date;

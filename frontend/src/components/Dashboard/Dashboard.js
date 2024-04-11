@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa';
-import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../AuthProvider';
 import { expensesApi } from '../../api/expenses';
+import Navbar from '../Navbar/Navbar';
+import SidebarMenu from '../SidebarMenu/SidebarMenu';
 import styles from './Dashboard.module.css';
 
 const Dashboard = () => {
@@ -13,7 +14,7 @@ const Dashboard = () => {
     cost: 0,
   });
   const authContext = useContext(AuthContext);
-  const navigate = useNavigate();
+  
 
   const fetchExpenses = async () => {
     try {
@@ -56,11 +57,6 @@ const Dashboard = () => {
     return `${date.toLocaleDateString()}`;
   };
 
-  const logout = () => {
-    authContext.logout();
-    navigate('/');
-  };
-
   const handleDeleteExpense = async (expenseId) => {
     try {
       await expensesApi.deleteExpenses(expenseId);
@@ -76,16 +72,9 @@ const Dashboard = () => {
 
   return (
     <div className={styles.dashboardContainer}>
-      <div className={styles.menu}>
-        <span className={styles.logo}>myBudget</span>
-        <Link to="/" className={styles.menuItem}>Dashboard</Link>
-        <Link to="/budgets" className={styles.menuItem}>Budgets</Link>
-        <Link to="/reports" className={styles.menuItem}>Reports</Link>
-        <Link to="/settings" className={styles.menuItem}>Settings</Link>
-        <Link to="/contact" className={styles.menuItem}>Contact</Link>
-        <div className={styles.logoutButtonContainer}>
-          <button className={`${styles.menuItem} ${styles.logoutButton}`} onClick={logout}>Log out</button>
-        </div>
+      <Navbar />
+      <div className={styles.sidebarContainer}>
+        <SidebarMenu />
       </div>
 
       <div className={styles.content}>
