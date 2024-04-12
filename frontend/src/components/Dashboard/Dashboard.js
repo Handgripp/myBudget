@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../AuthProvider';
 import { expensesApi } from '../../api/expenses';
 import Navbar from '../Navbar/Navbar';
@@ -8,6 +9,7 @@ import styles from './Dashboard.module.css';
 
 const Dashboard = () => {
   const [expenses, setExpenses] = useState([]);
+  const { budgetId } = useParams();
   const [newExpense, setNewExpense] = useState({
     date: '',
     category: '',
@@ -18,7 +20,7 @@ const Dashboard = () => {
 
   const fetchExpenses = async () => {
     try {
-      const response = await expensesApi.expensesGetAll();
+      const response = await expensesApi.expensesGetAllByBudgetId(budgetId);
       setExpenses(response.data);
     } catch (error) {
       console.error('Error fetching expenses:', error);
@@ -27,7 +29,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchExpenses();
-  }, []);
+  }, [budgetId]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +42,7 @@ const Dashboard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await expensesApi.createExpenses(newExpense);
+      await expensesApi.createExpenses(budgetId, newExpense);
       fetchExpenses();
       setNewExpense({
         date: '',

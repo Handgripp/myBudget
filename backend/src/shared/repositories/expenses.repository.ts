@@ -74,4 +74,27 @@ export class ExpensesRepository implements AbstractExpensesRepository {
       .andWhere('expenses.id = :expenseId', { expenseId })
       .getOne();
   }
+  async findManyByBudgetId(
+    userId: string,
+    budgetId: string,
+  ): Promise<ExpensesData[]> {
+    return await this.expensesRepository
+      .createQueryBuilder('expenses')
+      .select([
+        'expenses.id',
+        'expenses.category',
+        'expenses.cost',
+        'expenses.createdAt',
+        'expenses.updatedAt',
+        'expenses.date',
+        'user.id',
+        'user.username',
+        'budgets.id',
+      ])
+      .innerJoin('expenses.user', 'user')
+      .innerJoin('expenses.budgets', 'budgets')
+      .where('user.id = :userId', { userId })
+      .andWhere('budgets.id = :budgetId', { budgetId })
+      .getMany();
+  }
 }

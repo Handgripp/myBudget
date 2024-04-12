@@ -49,6 +49,21 @@ export class ExpensesController {
 
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
+  @Get(':budgets/expenses')
+  async getAllByBudgetId(
+    @Request() req: any,
+    @Param('budgets', new ParseUUIDPipe()) budgets: string,
+  ): Promise<ExpensesResponseDto[]> {
+    const userId = req.user.sub;
+    const expenses = await this.expensesService.getAllByBudgetId(
+      userId,
+      budgets,
+    );
+    return expenses.map((expenses) => new ExpensesResponseDto(expenses));
+  }
+
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
   @Delete(':expensesId')
   async deleteExpenses(
     @Param('expensesId', new ParseUUIDPipe()) expensesId: string,
